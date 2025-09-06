@@ -1,0 +1,2 @@
+1-) TODO: Design the bookshelf component
+2-) TODO: Design the Navbar component
