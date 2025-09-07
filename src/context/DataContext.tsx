@@ -7,6 +7,7 @@ type Book = {
     name: string;
     publisher: string;
     page: number;
+    image: string;
     language: string;
     status: string;
 };
@@ -40,7 +41,7 @@ export function DataProvider({children}: { children: ReactNode }) {
 
     useEffect(() => {
         fetchBooks();
-    }, [])  // ask about books array
+    }, []) 
 
     // add book
     const addBook = async (book: Omit<Book, "id">) => {
@@ -71,7 +72,7 @@ export function DataProvider({children}: { children: ReactNode }) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(book),
             });
-            
+
             if (!res.ok) return false;
 
             const updated = await res.json();
