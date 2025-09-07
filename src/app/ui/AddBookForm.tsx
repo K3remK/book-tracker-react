@@ -1,7 +1,10 @@
 'use client';
 
 import { useData } from "@/context/DataContext";
+import { Butterfly_Kids } from "next/font/google";
+import { styleText } from "node:util";
 import { useState } from "react";
+import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 
 
 export default function AddBookPage() {
@@ -45,37 +48,92 @@ export default function AddBookPage() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Add Book:</legend>
-
-                <label htmlFor="name">Name:</label><br></br>
-                <input type="text" id="name" value={form.name} onChange={handleChange}></input><br></br>
-
-                <label htmlFor="publisher">Publisher:</label><br></br>
-                <input type="text" id="publisher" value={form.publisher} onChange={handleChange}></input><br></br>
-                
-                <label htmlFor="page">Page:</label><br></br>
-                <input type="number" id="page" value={form.page} onChange={handleChange}></input><br></br>
-
-                <label htmlFor="image">Image URL:</label><br></br>
-                <input type="url" id="image" value={form.image} onChange={handleChange}></input><br></br>
-
-                <label htmlFor="language">Language:</label><br></br>
-                <input type="text" id="language" value={form.language} onChange={handleChange}></input><br></br>
-
-                <label htmlFor="status">Status:</label>
-                <select id="status" value={form.status} onChange={handleChange}>
-                    <option value="Unread">Unread</option>
-                    <option value="Reading">Reading</option>
-                    <option value="Finished">Finished</option>
-                </select><br></br>
-
-                <button type="submit" disabled={loading}>
-                  {loading ? "Adding..." : "Add Book"}
-                </button>
-
-            </fieldset>
-        </form>
+        <Form onSubmit={handleSubmit}>
+            <FormGroup row>
+                <Label for="name" sm={1}>Name</Label>
+                <Col sm={5}>
+                    <Input 
+                    id="name" 
+                    name="name" 
+                    placeholder="Name of the book" 
+                    type="text" 
+                    value={form.name} 
+                    onChange={handleChange}
+                />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="publisher" sm={1}>Publisher</Label>
+                <Col sm={5}>
+                    <Input 
+                    id="publisher" 
+                    name="publisher" 
+                    placeholder="Publisher of the book" 
+                    type="text" 
+                    value={form.publisher}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="page" sm={1}>Page</Label>
+                <Col sm={5}>
+                    <Input 
+                    id="page" 
+                    name="page" 
+                    type="number" 
+                    value={form.page}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="image" sm={1}>URL</Label>
+                <Col sm={5}>
+                    <Input 
+                    id="image" 
+                    name="image" 
+                    placeholder="https:/example.com" 
+                    type="text" 
+                    value={form.image}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="language" sm={1}>Language</Label>
+                <Col sm={5}>
+                    <Input 
+                    id="language" 
+                    name="language" 
+                    placeholder="Book's language" 
+                    type="text"
+                    value={form.language}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="status" sm={1}>
+                    Status
+                </Label>
+                <Col sm={3}>
+                    <Input
+                        id="status"
+                        name="status"
+                        type="select"
+                        value={form.status}
+                        onChange={handleChange}
+                        >
+                        <option value="Unread">Unread</option>
+                        <option value="Reading">Reading</option>
+                        <option value="Finished">Finished</option>
+                    </Input>
+                </Col>
+                <Col sm={2}>
+                    <Button block>Add</Button>
+                </Col>
+            </FormGroup>
+        </Form>
     )
 }
