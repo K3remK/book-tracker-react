@@ -10,22 +10,13 @@
       "status": "Finished"
     },
     {
-      "id": "d6ba",
-      "name": "",
-      "publisher": "",
-      "page": 0,
-      "image": "",
-      "language": "",
-      "status": "Reading"
-    },
-    {
-      "id": "9a98",
-      "name": "",
-      "publisher": "",
-      "page": 0,
-      "image": "",
-      "language": "",
-      "status": "Unread"
+      "id": "7a7b",
+      "name": "Gözlerini Sımsıkı Kapat",
+      "publisher": "KORİDOR YAYINCILIK",
+      "page": 566,
+      "image": "https://img.kitapyurdu.com/v1/getImage/fn:42844/wh:true/wi:800",
+      "language": "TR",
+      "status": "Finished"
     }
   ]
 }

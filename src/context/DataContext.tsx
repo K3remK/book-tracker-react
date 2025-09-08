@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
-type Book = {
+export type Book = {
     id: string;
     name: string;
     publisher: string;
