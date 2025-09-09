@@ -17,6 +17,17 @@
       "image": "https://img.kitapyurdu.com/v1/getImage/fn:42844/wh:true/wi:800",
       "language": "TR",
       "status": "Finished"
+    },
+    {
+      "id": "79e9",
+      "name": "Şeytanı Uyandırma",
+      "writer": "John Verdon",
+      "publisher": "KORİDOR YAYINCILIK",
+      "pageTotal": 538,
+      "pageRead": 100,
+      "image": "https://img.kitapyurdu.com/v1/getImage/fn:29988/wh:true/wi:800",
+      "language": "TR",
+      "status": "Reading"
     }
   ]
 }

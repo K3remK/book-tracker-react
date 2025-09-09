@@ -5,8 +5,10 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 export type Book = {
     id: string;
     name: string;
+    writer: string;
     publisher: string;
-    page: number;
+    pageTotal: number;
+    pageRead: number;
     image: string;
     language: string;
     status: string;

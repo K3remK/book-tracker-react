@@ -10,8 +10,10 @@ export default function AddBookPage() {
 
     const [form, setForm] = useState({
         name: "",
+        writer: "",
         publisher: "",
-        page: 0,
+        pageTotal: "",
+        pageRead: "",
         image: "",
         language: "",
         status: "Unread",
@@ -22,20 +24,26 @@ export default function AddBookPage() {
 
         setForm((prev) => ({
             ...prev,
-            [id]: id === "page" ? Number(value) : value, // convert page value into number
+            [id]: (id === "pageTotal" || id === "pageRead") ? Number(value) : value, // convert page value into number
         }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault(); // prevents page from realoading
 
-        const success = await addBook(form);
+        const success = await addBook({
+            ...form,
+            pageTotal: form.pageTotal === "" ? 0 : Number(form.pageTotal),
+            pageRead: form.pageRead === "" ? 0 : Number(form.pageRead),
+        });
         if (success) {
             alert("Book added successfully!");
             setForm({
                 name: "",
+                writer: "",
                 publisher: "",
-                page: 0,
+                pageTotal: "",
+                pageRead: "",
                 image: "",
                 language: "",
                 status: "Unread",
@@ -61,6 +69,19 @@ export default function AddBookPage() {
                 </Col>
             </FormGroup>
             <FormGroup row>
+                <Label for="writer" sm={1}>Writer</Label>
+                <Col sm={5}>
+                    <Input 
+                    id="writer" 
+                    name="writer" 
+                    placeholder="Writer of the book" 
+                    type="text" 
+                    value={form.writer} 
+                    onChange={handleChange}
+                />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
                 <Label for="publisher" sm={1}>Publisher</Label>
                 <Col sm={5}>
                     <Input 
@@ -74,13 +95,27 @@ export default function AddBookPage() {
                 </Col>
             </FormGroup>
             <FormGroup row>
-                <Label for="page" sm={1}>Page</Label>
+                <Label for="pageTotal" sm={1}>Total Page</Label>
                 <Col sm={5}>
                     <Input 
-                    id="page" 
-                    name="page" 
+                    id="pageTotal" 
+                    name="pageTotal" 
                     type="number" 
-                    value={form.page}
+                    min={0}
+                    value={form.pageTotal}
+                    onChange={handleChange}
+                    />
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="pageRead" sm={1}>Total Read</Label>
+                <Col sm={5}>
+                    <Input 
+                    id="pageRead" 
+                    name="pageRead" 
+                    type="number" 
+                    value={form.pageRead}
+                    min={0}
                     onChange={handleChange}
                     />
                 </Col>

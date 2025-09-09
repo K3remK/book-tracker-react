@@ -1,5 +1,5 @@
 import { Book } from "@/context/DataContext";
-import { Card, CardBody, CardImg, CardText, CardTitle, Col, Row } from "reactstrap";
+import { Card, CardBody, CardImg, CardText, CardTitle, Col, Progress, Row } from "reactstrap";
 
 export default function BookShelf(props: { book : Book }) {
     const { book } = props;
@@ -18,9 +18,15 @@ export default function BookShelf(props: { book : Book }) {
                 <Col md={8}>
                     <CardBody>
                         <CardTitle className="fw-bold">{book.name}</CardTitle>
-
+                        
                         <CardText tag="h5">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
                         <CardText>Last updated 3 mins ago</CardText>
+                        <CardText>{book.pageRead}/{book.pageTotal}</CardText>
+                        <Progress 
+                            animated 
+                            color="info"
+                            value={book.pageRead / book.pageTotal * 100}
+                        />
                     </CardBody>
                 </Col>
             </Row>
