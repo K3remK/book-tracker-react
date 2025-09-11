@@ -7,13 +7,14 @@ import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 
 export default function AddBookPage() {
     const { addBook, loading } = useData();
+    const [ zeroCheck, setZeroCheck ] = useState<boolean | null>(null);
 
     const [form, setForm] = useState({
         name: "",
         writer: "",
         publisher: "",
-        pageTotal: "",
-        pageRead: "",
+        pageTotal: "0",
+        pageRead: "0",
         image: "",
         language: "",
         status: "Unread",
@@ -22,14 +23,31 @@ export default function AddBookPage() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
 
+        if (id === "pageTotal" && value != "" && !Number(value)) {
+            setForm({ ...form, pageTotal: "0" });
+            return;
+        } else if (id === "pageRead" && value != "" && !Number(value)) {
+            setForm({ ...form, pageRead: "0" });
+            return;
+        }
+
+        if (Number(value) != 0) setZeroCheck(true);
+        else setZeroCheck(false);
+
         setForm((prev) => ({
             ...prev,
-            [id]: (id === "pageTotal" || id === "pageRead") ? Number(value) : value, // convert page value into number
+            [id]: value,
         }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault(); // prevents page from realoading
+
+        if (Number(form.pageTotal) == 0) {
+            setZeroCheck(false);
+            alert("Total page cannot be zero!");
+            return;
+        }
 
         const success = await addBook({
             ...form,
@@ -42,8 +60,8 @@ export default function AddBookPage() {
                 name: "",
                 writer: "",
                 publisher: "",
-                pageTotal: "",
-                pageRead: "",
+                pageTotal: "0",
+                pageRead: "0",
                 image: "",
                 language: "",
                 status: "Unread",
@@ -98,10 +116,11 @@ export default function AddBookPage() {
                 <Label for="pageTotal" sm={1}>Total Page</Label>
                 <Col sm={5}>
                     <Input 
+                    valid={zeroCheck === true}
+                    invalid={zeroCheck === false}
                     id="pageTotal" 
                     name="pageTotal" 
-                    type="number" 
-                    min={0}
+                    type="text" 
                     value={form.pageTotal}
                     onChange={handleChange}
                     />
@@ -113,9 +132,8 @@ export default function AddBookPage() {
                     <Input 
                     id="pageRead" 
                     name="pageRead" 
-                    type="number" 
+                    type="text" 
                     value={form.pageRead}
-                    min={0}
                     onChange={handleChange}
                     />
                 </Col>

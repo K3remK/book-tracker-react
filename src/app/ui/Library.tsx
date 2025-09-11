@@ -12,7 +12,7 @@ export default function Library() {
                 {books.map((item, index) => {
                     return (
                         <Col key={`book-${index}`} sm="12" md="6" lg="4" className="p-1">
-                            <BookShelf book={item}/>
+                            <BookShelf id={item.id}/>
                         </Col>
                     )
                 })}

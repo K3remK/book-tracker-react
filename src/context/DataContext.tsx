@@ -18,7 +18,8 @@ type DataContextType = {
     books: Book[];
     loading: boolean;
     addBook: (book: Omit<Book, "id">) => Promise<boolean>;
-    updateBook: (id: string, book: Book) => Promise<boolean>;
+    getBook: (id: string) => Promise<Book | null>;
+    updateBook: (book: Book) => Promise<boolean>;
     deleteBook: (id: string) => Promise<boolean>;
     refresh: () => Promise<void>;
 };
@@ -66,10 +67,25 @@ export function DataProvider({children}: { children: ReactNode }) {
         }
     };
 
-    // Update books
-    const updateBook = async (id: string, book: Book) => {
+    // get book
+    const getBook = async (id : string) => {
         try {
-            const res = await fetch(`${API_URL}/${id}`, {
+            const res = await fetch(`${API_URL}/${id}`);
+            if (!res.ok) return null;
+
+            const book: Book = await res.json();
+            
+            return book;
+        } catch (error) {
+            console.error("Error getting the book from database!");
+            return null;
+        }
+    };
+
+    // Update books
+    const updateBook = async (book: Book) => {
+        try {
+            const res = await fetch(`${API_URL}/${book.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(book),
@@ -78,7 +94,7 @@ export function DataProvider({children}: { children: ReactNode }) {
             if (!res.ok) return false;
 
             const updated = await res.json();
-            setBooks((prev) => prev.map((b) => (b.id === id ? updated : b)));
+            setBooks((prev) => prev.map((b) => (b.id === book.id ? updated : b)));
             return true;
         } catch (error) {
             console.error("Failed to update book: ", error);
@@ -103,7 +119,7 @@ export function DataProvider({children}: { children: ReactNode }) {
 
     return (
         <DataContext.Provider
-            value={{books, loading, addBook, updateBook, deleteBook, refresh: fetchBooks}}
+            value={{books, loading, addBook, getBook, updateBook, deleteBook, refresh: fetchBooks}}
         >
             {children}
         </DataContext.Provider>
